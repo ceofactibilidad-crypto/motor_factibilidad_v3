@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+sqlalchemy
+dbfread
+PyJWT
+python-multipart
+psycopg2-binary
+python-dotenv
+playwright
+nest_asyncio
+requests
+httpx
+shapely
+psycopg2-binary

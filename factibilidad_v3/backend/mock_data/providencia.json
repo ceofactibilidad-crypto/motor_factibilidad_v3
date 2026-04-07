@@ -1,0 +1,66 @@
+{
+  "comuna": "Providencia",
+  "fuente": "Plan Regulador Comunal de Providencia (PRC) & Plan Regulador Metropolitano de Santiago (PRMS)",
+  "zonas": [
+    {
+      "id_zona": "UpR-1",
+      "nombre_oficial": "Zona de Conservación y Regeneración Media",
+      "usos_permitidos": ["Residencial", "Equipamiento de Escala Básica"],
+      "usos_prohibidos": ["Industrial", "Bodegaje Mayor"],
+      "normativa": {
+        "coeficiente_constructibilidad": 1.2,
+        "coeficiente_constructibilidad_con_fusion": 1.56,
+        "ocupacion_suelo_maxima": 0.40,
+        "ocupacion_pisos_superiores": 0.30,
+        "altura_maxima_pisos": 4,
+        "altura_maxima_metros": 12.0,
+        "antejardin_minimo_metros": 3.0,
+        "adosamiento_permitido": false,
+        "densidad_maxima_hab_ha": 600,
+        "superficie_predial_minima_m2": 300
+      },
+      "restricciones_especiales": [
+        "Rasante de 70° obligatoria en todos los deslindes.",
+        "Proyección de sombras hacia predios vecinos restringida."
+      ],
+      "poligono_referencial": {
+        "tipo": "Polygon",
+        "advertencia": "Este polígono es un mock referencial antes de usar PostGIS nativo.",
+        "coordenadas": [
+          [
+            [-70.618, -33.435],
+            [-70.612, -33.435],
+            [-70.612, -33.430],
+            [-70.618, -33.430],
+            [-70.618, -33.435]
+          ]
+        ]
+      }
+    },
+    {
+      "id_zona": "UpC",
+      "nombre_oficial": "Zona Urbana Centro Comunal Eje Providencia",
+      "usos_permitidos": ["Comercio", "Oficinas", "Equipamiento de Escala Comunal/Intercomunal", "Residencial"],
+      "usos_prohibidos": ["Infraestructura Sanitaria", "Industrial Peligrosa"],
+      "normativa": {
+        "coeficiente_constructibilidad": 3.5,
+        "coeficiente_constructibilidad_con_fusion": 4.55,
+        "ocupacion_suelo_maxima": 0.60,
+        "ocupacion_pisos_superiores": 0.50,
+        "altura_maxima_pisos": 0,
+        "altura_maxima_metros": 21.0,
+        "antejardin_minimo_metros": 0.0,
+        "adosamiento_permitido": true,
+        "densidad_maxima_hab_ha": 1200,
+        "superficie_predial_minima_m2": 500
+      },
+      "restricciones_especiales": [
+        "Edificación continua permitida hasta la línea oficial."
+      ],
+      "poligono_referencial": {
+        "tipo": "Polygon",
+        "coordenadas": []
+      }
+    }
+  ]
+}

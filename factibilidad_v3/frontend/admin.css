@@ -1,0 +1,90 @@
+.admin-body { 
+    display: flex; height: 100vh; overflow: hidden; background-color: var(--bg-darker); 
+    font-family: 'Inter', sans-serif;
+}
+
+#login-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at center, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 1));
+    z-index: 9999; display: flex; align-items: center; justify-content: center;
+}
+
+.login-box {
+    padding: 3rem; width: 100%; max-width: 400px;
+}
+.login-box input {
+    width: 100%; padding: 0.8rem 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(0,0,0,0.5); color: white; margin-bottom: 1rem; font-family: 'Inter'; font-size: 1rem;
+}
+.login-box input:focus { outline: none; border-color: var(--primary); }
+
+/* Sidebar Más Compacto */
+.admin-sidebar { 
+    width: 240px; background: rgba(15, 23, 42, 0.95); border-right: 1px solid var(--border); 
+    display: flex; flex-direction: column; padding: 1.5rem 1rem; 
+    box-shadow: 10px 0 30px rgba(0,0,0,0.5); z-index: 50;
+}
+
+.admin-sidebar nav { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 2rem; flex: 1; }
+
+.admin-sidebar a { 
+    display: flex; align-items: center; gap: 0.6rem; padding: 0.8rem 1rem; 
+    color: var(--text-muted); text-decoration: none; border-radius: 6px; font-weight: 500;
+    font-size: 0.85rem; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+
+.admin-sidebar a .material-symbols-outlined { font-size: 1.2rem; }
+.admin-sidebar a:hover, .admin-sidebar a.active { 
+    background: rgba(59, 130, 246, 0.15); color: white; border-right: 3px solid var(--primary); 
+}
+
+.admin-sidebar .logout { margin-top: auto; color: #ef4444; }
+.admin-sidebar .logout:hover { background: rgba(239, 68, 68, 0.15); border-right-color: #ef4444; color: white;}
+
+/* Contenido Principal con menor Padding */
+.admin-content { 
+    flex: 1; padding: 2rem 2.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1.5rem; 
+    background: radial-gradient(circle at top right, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 1) 100%);
+}
+
+.admin-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 1rem; }
+.admin-header h1 { font-size: 1.5rem; margin-bottom: 0.1rem; text-transform: none; color: white;}
+
+/* Tabs visibilidad */
+.tab-section { display: none; animation: fadeIn 0.3s ease; }
+.tab-section.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Utils */
+.mt-2 { margin-top: 1.5rem; }
+
+/* Stats Compactos */
+.admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+.stat-card { 
+    padding: 1.2rem; display: flex; align-items: center; gap: 1rem; 
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;
+}
+.stat-card .icon-stat { font-size: 2.2rem; color: rgba(255,255,255,0.2); }
+.stat-card h3 { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; border: none; padding: 0; margin-bottom: 0.1rem;}
+.stat-card strong { font-size: 1.8rem; font-weight: 800; line-height: 1; }
+
+.highlighted-error { border-color: rgba(245, 158, 11, 0.3); background: rgba(245, 158, 11, 0.05); }
+.success-text { color: #10b981; } .warning-text { color: #f59e0b; }
+
+/* Tablas Más Pequeñas y Densas */
+.table-container { padding: 0; overflow-x: auto; background: rgba(15, 23, 42, 0.6); border-radius: 8px;}
+.data-table { width: 100%; border-collapse: collapse; text-align: left; }
+.data-table th, .data-table td { padding: 0.8rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: #e2e8f0; font-size: 0.8rem; }
+.data-table th { color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; background: rgba(0,0,0,0.4); letter-spacing: 0.05em;}
+.data-table tr:hover { background: rgba(255,255,255,0.03); }
+
+/* Badges más finos */
+.badge { padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;}
+.badge.warning { background: rgba(245, 158, 11, 0.15); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.3); }
+.badge.danger { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.3); }
+.badge.success { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); }
+.badge.neutral { background: rgba(255, 255, 255, 0.1); color: #94a3b8; border: 1px solid rgba(255, 255, 255, 0.2); }
+
+/* Botones reducidos */
+.btn-small { background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.5); color: #93c5fd; padding: 0.4rem 0.8rem; border-radius: 4px; cursor: pointer; transition: all 0.2s; font-weight: 600; font-size: 0.7rem;}
+.btn-small:hover { background: rgba(59, 130, 246, 0.8); color: white; }

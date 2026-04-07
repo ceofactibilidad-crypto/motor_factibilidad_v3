@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago Rechazado | factibilidad.cl</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { display: flex; align-items: center; justify-content: center; height: 100vh; background: #020617; margin: 0; font-family: 'Inter', sans-serif;}
+        .card { text-align: center; max-width: 500px; padding: 3rem; background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 20px;}
+        .icon-error { font-size: 5rem; color: #ef4444; margin-bottom: 1rem; }
+        h1 { color: white; font-family: 'Outfit'; font-size: 2rem; margin-bottom: 1rem;}
+        p { color: #94a3b8; line-height: 1.6; margin-bottom: 2rem;}
+    </style>
+</head>
+<body>
+    <div class="card glass-panel">
+        <span class="material-symbols-outlined icon-error">error</span>
+        <h1>Transacción Rechazada</h1>
+        <p>Hubo un problema procesando tu pago en Mercado Pago (Puede ser fondos insuficientes o rechazo del banco emisor). Tu tarjeta no ha sido cargada.</p>
+        <button class="btn-primary" onclick="window.history.back()" style="width: 100%; border-radius: 50px; background: transparent; border: 1px solid white;">Reintentar Pago</button>
+        <a href="index.html" style="display: block; margin-top: 1.5rem; color: var(--text-muted); font-size: 0.9rem;">Volver al Radar Gratis</a>
+    </div>
+</body>
+</html>

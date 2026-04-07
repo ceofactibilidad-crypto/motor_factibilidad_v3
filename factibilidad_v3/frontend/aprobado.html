@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe | factibilidad.cl</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { background: #020617; font-family: 'Inter', sans-serif; color: #f8fafc; margin: 0; }
+
+        .report-header {
+            background: #0f172a; border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding: 1rem 2rem; display: flex; align-items: center;
+            justify-content: space-between; position: sticky; top: 0; z-index: 100;
+        }
+        .logo { font-family: 'Outfit'; font-weight: 900; font-size: 1.3rem;
+            background: linear-gradient(135deg,#0ea5e9,#3b82f6);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+        }
+        .badge-plan { padding: 0.35rem 1rem; border-radius: 30px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; border: 1px solid; }
+        .badge-gratis     { background: rgba(71,85,105,0.3); border-color: #475569; color: #94a3b8; }
+        .badge-basico     { background: rgba(59,130,246,0.15); border-color: #3b82f6; color: #93c5fd; }
+        .badge-profesional{ background: rgba(168,85,247,0.15); border-color: #a855f7; color: #d8b4fe; }
+        .badge-premium    { background: rgba(245,158,11,0.15); border-color: #f59e0b; color: #fbbf24; }
+        .badge-membresia  { background: rgba(16,185,129,0.15); border-color: #10b981; color: #6ee7b7; }
+
+        .informe-hero { background: linear-gradient(180deg,#0f172a 0%,#020617 100%); padding: 1.5rem 2rem 1rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .informe-hero h1 { font-family: 'Outfit'; font-size: 2.2rem; font-weight: 900; margin-bottom: 0.3rem; letter-spacing: -0.02em; }
+        .informe-hero .dir { color: #3b82f6; font-size: 1.1rem; font-weight: 600; }
+        .informe-hero .fecha { color: #475569; font-size: 0.82rem; margin-top: 0.4rem; }
+
+        .report-body { max-width: 1100px; margin: 0 auto; padding: 1.2rem 1.5rem 6rem; display: flex; flex-direction: column; gap: 1.5rem; }
+
+        /* Cargando */
+        .loading-state { text-align: center; padding: 4rem 2rem; color: #475569; }
+        .loading-state .spinner { width: 40px; height: 40px; border: 3px solid rgba(59,130,246,0.2); border-top-color: #3b82f6; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 1.5rem; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Score card */
+        .score-card { border-radius: 16px; padding: 1.5rem 2rem; display: flex; align-items: center; gap: 1.5rem; }
+        .score-card.A { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.4); }
+        .score-card.B { background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.4); }
+        .score-card.C { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.4); }
+        .score-letter { font-family: 'Outfit'; font-size: 4.5rem; font-weight: 900; line-height: 1; }
+        .score-card.A .score-letter { color: #22c55e; }
+        .score-card.B .score-letter { color: #3b82f6; }
+        .score-card.C .score-letter { color: #f59e0b; }
+        .score-text h3 { font-family: 'Outfit'; font-size: 1.4rem; margin-bottom: 0.3rem; }
+        .score-text p  { color: #94a3b8; font-size: 0.93rem; line-height: 1.55; }
+
+        /* Cards */
+        .section-card { background: rgba(15,23,42,0.5); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 1.8rem 2rem; }
+        .section-card h2 { font-family: 'Outfit'; font-size: 1.2rem; font-weight: 700; margin-bottom: 1.2rem; padding-bottom: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.07); display: flex; align-items: center; gap: 0.5rem; }
+        .section-card h2 .material-symbols-outlined { color: #3b82f6; font-size: 1.3rem; }
+
+        /* Métricas */
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); gap: 1rem; }
+        .metric-box { background: rgba(15,23,42,0.6); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 1.1rem 1.4rem; }
+        .metric-box .lbl { color: #64748b; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; margin-bottom: 0.4rem; }
+        .metric-box .val { font-family: 'Outfit'; font-size: 1.7rem; font-weight: 800; color: white; }
+        .metric-box .sub { color: #475569; font-size: 0.78rem; margin-top: 0.15rem; }
+        .metric-box.gold { border-color: rgba(245,158,11,0.5); background: rgba(245,158,11,0.05); }
+        .metric-box.gold .val { color: #f59e0b; }
+
+        /* Tabla */
+        .norm-table { width: 100%; border-collapse: collapse; }
+        .norm-table th { text-align: left; color: #475569; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .norm-table td { padding: 0.85rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.93rem; }
+        .norm-table td:last-child { text-align: right; font-weight: 700; color: #f8fafc; }
+        .norm-table tr:last-child td { border-bottom: none; }
+
+        /* Rol pill */
+        .rol-pill { display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.3); border-radius: 30px; padding: 0.35rem 1rem; font-size: 0.88rem; color: #93c5fd; font-weight: 700; }
+
+        /* FUENTES — Texto oficial completo, sin icono, semitransparente */
+        .fuentes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+        .fuente-tag {
+            font-size: 0.75rem;
+            color: rgba(148, 163, 184, 0.55);   /* semitransparente siguiendo paleta web */
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            padding: 0.2rem 0.6rem;
+            border-left: 2px solid rgba(59,130,246,0.25);
+            line-height: 1.4;
+        }
+
+        /* Asterisco — Solo visible en DEV MODE (?dev=1) */
+        .dato-estimado sup.asterisco {
+            display: none;
+            color: #f59e0b;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-left: 1px;
+        }
+        body.dev-mode .dato-estimado sup.asterisco { display: inline; }
+        body.dev-mode::before {
+            content: "● MODO DISEÑO — Los asteriscos (*) indican datos estimados pendientes de verificación";
+            display: block; background: rgba(245,158,11,0.2); border-bottom: 1px solid rgba(245,158,11,0.4);
+            color: #fbbf24; font-size: 0.78rem; font-weight: 600; text-align: center;
+            padding: 0.5rem; letter-spacing: 0.02em;
+        }
+
+        /* Lock section */
+        .lock-section { position: relative; border-radius: 18px; overflow: hidden; }
+        .lock-overlay { position: absolute; inset: 0; background: rgba(2,6,23,0.82); backdrop-filter: blur(4px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.8rem; text-align: center; z-index: 10; padding: 2rem; }
+        .lock-overlay .lock-icon { font-size: 2.5rem; color: #3b82f6; }
+        .lock-overlay h3 { font-family: 'Outfit'; font-size: 1.1rem; margin-bottom: 0.2rem; }
+        .lock-overlay p { color: #64748b; font-size: 0.85rem; max-width: 320px; }
+        .lock-btn { background: linear-gradient(135deg,#0ea5e9,#3b82f6); color: white; border: none; padding: 0.7rem 1.8rem; font-family: 'Inter'; font-size: 0.9rem; font-weight: 700; border-radius: 50px; cursor: pointer; transition: filter 0.2s; }
+        .lock-btn:hover { filter: brightness(1.15); }
+
+        /* Escenarios */
+        .escenarios-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+        @media(max-width:700px) { .escenarios-grid { grid-template-columns: 1fr; } }
+        .esc-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 1.2rem; }
+        .esc-card .esc-nom { font-family: 'Outfit'; font-weight: 700; font-size: 1rem; margin-bottom: 0.8rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .esc-card .r { display: flex; justify-content: space-between; font-size: 0.85rem; padding: 0.3rem 0; color: #94a3b8; }
+        .esc-card .r span:last-child { color: white; font-weight: 600; }
+        .esc-card .margen { font-family: 'Outfit'; font-size: 1.5rem; font-weight: 900; color: #22c55e; margin-top: 0.8rem; }
+
+        /* Riesgos */
+        .riesgos-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap: 1rem; }
+        .riesgo-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1rem 1.2rem; }
+        .riesgo-box .r-lbl { color: #64748b; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+        .riesgo-box .r-val { font-size: 0.9rem; line-height: 1.5; }
+
+        /* AI */
+        .ai-card { background: linear-gradient(135deg,rgba(16,185,129,0.08),rgba(59,130,246,0.08)); border: 1px solid rgba(16,185,129,0.25); border-radius: 18px; padding: 1.8rem 2rem; }
+        .ai-card h2 { font-family: 'Outfit'; font-size: 1.2rem; color: #10b981; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+        .ai-card p { color: #cbd5e1; line-height: 1.7; }
+
+        /* JSON membresía */
+        .json-out { background: #020617; border: 1px solid rgba(16,185,129,0.3); border-radius: 14px; padding: 1.5rem; font-family: monospace; font-size: 0.85rem; color: #6ee7b7; overflow-x: auto; white-space: pre; }
+
+        /* CTA */
+        .cta-bar { text-align: center; padding: 2.5rem 1rem; border-top: 1px dashed rgba(255,255,255,0.08); }
+        .cta-bar h2 { font-family: 'Outfit'; font-size: 1.8rem; margin-bottom: 0.4rem; }
+        .cta-bar p { color: #94a3b8; margin-bottom: 1.5rem; font-size: 0.95rem; }
+        .cta-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .btn-dl { background: linear-gradient(135deg,#0ea5e9,#3b82f6); color: white; border: none; padding: 0.9rem 2.2rem; font-family: 'Inter'; font-size: 0.95rem; font-weight: 700; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: filter 0.2s,transform 0.2s; }
+        .btn-dl:hover { filter: brightness(1.15); transform: translateY(-2px); }
+        .btn-back { background: rgba(255,255,255,0.06); color: #cbd5e1; border: 1px solid rgba(255,255,255,0.15); padding: 0.9rem 2.2rem; font-family: 'Inter'; font-size: 0.95rem; font-weight: 600; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: all 0.2s; }
+        .btn-back:hover { background: rgba(255,255,255,0.12); }
+    </style>
+</head>
+<body>
+
+<header class="report-header">
+    <span class="logo">factibilidad.cl</span>
+    <span class="badge-plan" id="badge-plan">CARGANDO...</span>
+    <button class="btn-back" onclick="window.location.href='index.html'">
+        <span class="material-symbols-outlined" style="font-size:1rem">arrow_back</span> Inicio
+    </button>
+</header>
+
+<div class="informe-hero">
+    <h1 id="informe-titulo">Informe de Factibilidad</h1>
+    <div class="dir" id="dir-h"></div>
+    <div class="fecha" id="fecha-h"></div>
+</div>
+
+<div class="report-body" id="report-body">
+    <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Consultando base de datos normativa y SII...</p>
+    </div>
+</div>
+
+<script>
+// ─── parámetros URL ────────────────────────────────────────────────────────────
+const params   = new URLSearchParams(window.location.search);
+const RAW_DIR  = decodeURIComponent(params.get('dir') || 'Nueva Providencia 2214, Providencia');
+const PLAN     = (params.get('plan') || 'basico').toLowerCase();
+const DEV_MODE = params.get('dev') === '1';
+
+if (DEV_MODE) document.body.classList.add('dev-mode');
+
+// Fecha
+const hoy = new Date();
+document.getElementById('fecha-h').textContent = 'Generado el ' +
+    hoy.toLocaleDateString('es-CL', {year:'numeric',month:'long',day:'numeric'});
+document.getElementById('dir-h').textContent = RAW_DIR;
+
+const BADGE_DATA = {
+    gratis:       {cls:'gratis',      label:'GRATIS'},
+    basico:       {cls:'basico',      label:'BÁSICO'},
+    profesional:  {cls:'profesional', label:'PROFESIONAL'},
+    premium:      {cls:'premium',     label:'PREMIUM'},
+    membresia_pro:{cls:'membresia',   label:'MEMBRESÍA PRO'},
+};
+const bd = BADGE_DATA[PLAN] || BADGE_DATA['basico'];
+const badgeEl = document.getElementById('badge-plan');
+badgeEl.className = `badge-plan badge-${bd.cls}`;
+badgeEl.textContent = bd.label;
+
+const TITULOS = {
+    gratis:       'Informe de Factibilidad Inicial',
+    basico:       'Informe Técnico Básico',
+    profesional:  'Informe Técnico + Análisis de Negocio',
+    premium:      'Estudio Inmobiliario Completo',
+    membresia_pro:'Datos de Plataforma — Membresía Pro',
+};
+document.getElementById('informe-titulo').textContent = TITULOS[PLAN] || 'Informe de Factibilidad';
+
+// ─── Parsear dirección de la URL ──────────────────────────────────────────────
+function parsearDir(dir) {
+    const COMUNAS = ['providencia','las condes','vitacura','santiago','nunoa','nuñoa','ñuñoa','miraflores','macul','la florida','maipu','maipú'];
+    let comuna = 'Providencia', calle = '', numero = 1;
+
+    const partes = dir.split(',');
+    if (partes.length > 1) {
+        const posibleComuna = partes[partes.length - 1].trim().toLowerCase();
+        for (const c of COMUNAS) {
+            if (posibleComuna.includes(c.replace('ñ','n').replace('ú','u')) ||
+                posibleComuna.normalize('NFD').replace(/[\u0300-\u036f]/g,'').includes(c.normalize('NFD').replace(/[\u0300-\u036f]/g,''))) {
+                comuna = partes[partes.length - 1].trim();
+                break;
+            }
+        }
+    }
+
+    // deducir también si la primera parte contiene el nombre de una comuna
+    const dirBaja = dir.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    if (dirBaja.includes('nunoa') || dirBaja.includes('nuñoa')) comuna = 'Ñuñoa';
+    else if (dirBaja.includes('providencia') && !dirBaja.includes('nueva providencia')) comuna = 'Providencia';
+    else if (dirBaja.includes('providencia')) comuna = 'Providencia';
+
+    // extraer número
+    const numMatch = dir.match(/\b(\d{3,5})\b/);
+    if (numMatch) numero = parseInt(numMatch[1]);
+
+    // extraer calle (todo antes del número)
+    const calleMatch = dir.replace(/,.*$/, '').match(/^(.*?)\s*\d{3,5}/);
+    if (calleMatch) calle = calleMatch[1].trim();
+    else calle = dir.replace(/,.*$/,'').replace(/\d+/g,'').trim();
+
+    // Normalizar región
+    const region = 'metropolitana';
+    return { region, comuna: comuna.replace('ñ','n').replace('Ñ','N'), calle, numero };
+}
+
+// ─── Mapeo Fuente → Nombre oficial completo ───────────────────────────────────
+function fuenteOficial(fuente) {
+    const f = (fuente || '').toLowerCase();
+    if (f.includes('sii') || f.includes('impuesto'))   return 'Servicio de Impuestos Internos';
+    if (f.includes('minvu') || f.includes('vivienda'))  return 'Ministerio de Vivienda y Urbanismo';
+    if (f.includes('egis') || f.includes('informaci'))  return 'EGIS — Sistema de Información Territorial';
+    if (f.includes('prc') || f.includes('plan regulad') || f.includes('dom') || f.includes('ordenanza'))
+        return 'Plan Regulador Comunal — Dirección de Obras Municipales';
+    if (f.includes('geoide'))                           return 'MINVU — Geoide Sistema Nacional Territorial';
+    if (f.includes('diario oficial'))                   return 'Diario Oficial de la República de Chile';
+    if (f.includes('ide') || f.includes('infraestructura'))
+        return 'IDE Chile — Infraestructura de Datos Espaciales';
+    if (f.includes('footprint') || f.includes('estimado') || f.includes('estimac'))
+        return 'Estimación por Footprint Satelital';
+    return fuente || 'Fuente Referencial';
+}
+
+// ─── Valor con asterisco si es estimado o falta información ───
+function val(v, esEstimado = false) {
+    if (!v || v === 'Sin Información' || v === 'None' || v === '0 m²') {
+        return `<span class="dato-estimado" style="color:#f87171; font-weight:600;">Sin Info<sup class="asterisco">*</sup></span>`;
+    }
+    if (esEstimado) return `<span class="dato-estimado">${v}<sup class="asterisco">*</sup></span>`;
+    return v;
+}
+
+// ─── Helpers de formato ───────────────────────────────────────────────────────
+const fmt    = n => (n ?? 0).toLocaleString('es-CL');
+const fmtClp = n => '$' + Math.round(n / 1_000_000) + 'M';
+const SCORE_TEXTO = {
+    A: {titulo:'Oportunidad Excepcional de Desarrollo', desc:'Esta propiedad subutiliza enormemente su potencial normativo. Ideal para un proyecto de densificación de alta rentabilidad.'},
+    B: {titulo:'Oportunidad Moderada de Densificación', desc:'Existe un margen de desarrollo interesante. Un proyecto de mediana escala puede rentabilizar el excedente normativo.'},
+    C: {titulo:'Propiedad Estándar con Flexibilidad Básica', desc:'La propiedad cumple con parámetros típicos de la zona. Existen opciones de ampliación según la ocupación actual.'},
+};
+
+function lockSection(titulo, planNec, precio) {
+    return `
+    <div class="lock-section section-card" style="min-height:160px;">
+        <div style="opacity:0.15;filter:blur(2px);user-select:none;padding:1rem;">
+            <h2>${titulo}</h2><p>Contenido bloqueado...</p>
+        </div>
+        <div class="lock-overlay">
+            <span class="material-symbols-outlined lock-icon">lock</span>
+            <h3>${titulo}</h3>
+            <p>Disponible desde el plan <strong>${planNec}</strong> (${precio})</p>
+            <button class="lock-btn" onclick="window.location.href='index.html#planes'">Ver Planes</button>
+        </div>
+    </div>`;
+}
+
+// ─── LLAMADA AL API ────────────────────────────────────────────────────────────
+async function cargarInforme() {
+    const body = document.getElementById('report-body');
+    const parsed = parsearDir(RAW_DIR);
+
+    let D;
+    let esEstimadoSII       = false;
+    let esEstimadoNormativa = false;
+
+    try {
+        const resp = await fetch('/api/analizar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                region:  parsed.region,
+                comuna:  parsed.comuna,
+                calle:   parsed.calle,
+                numero:  parsed.numero,
+                tier:    PLAN.toUpperCase().replace('_', '_'),
+            })
+        });
+        if (!resp.ok) throw new Error('API error ' + resp.status);
+        D = await resp.json();
+
+        // Detectar si los datos son fallback (estimados)
+        esEstimadoSII       = !D.rol_sii || D.rol_sii === 'Sin ROL registrado';
+        esEstimadoNormativa = D.fuente_normativa && D.fuente_normativa.includes('Genérico');
+
+    } catch(err) {
+        body.innerHTML = `<div class="loading-state"><p style="color:#f87171">Error al conectar con el servidor: ${err.message}</p></div>`;
+        return;
+    }
+
+    const tipo = D.tipo_oportunidad || 'B';
+    const st   = SCORE_TEXTO[tipo] || SCORE_TEXTO['B'];
+    const fuenteNorm  = fuenteOficial(D.fuente_normativa);
+    const fuenteSII   = 'Servicio de Impuestos Internos';
+    const fuenteEstim = 'Estimación por Footprint Satelital';
+
+    let html = '';
+
+    // ─── BLOQUE 1: Score (todos) ──────────────────────────────────────────────
+    html += `
+    <div class="score-card ${tipo}">
+        <div class="score-letter">${tipo}</div>
+        <div class="score-text">
+            <h3>${st.titulo}</h3>
+            <p>${st.desc}</p>
+        </div>
+    </div>`;
+
+    // ─── BLOQUE 1.5: Análisis de IA ───────────────────────────────────────────
+    if (D.analisis_ia) {
+        html += `
+        <div class="section-card ai-card" style="margin-top:-0.5rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));">
+            <div style="color:#94a3b8; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.5rem;">Lee el Análisis Automático</div>
+            <h2 style="margin-bottom:0.6rem;"><span class="material-symbols-outlined">psychology</span> Análisis Inteligente IA</h2>
+            <p style="color:#f8fafc; font-size:1.05rem; line-height:1.6; margin:0;">${D.analisis_ia}</p>
+        </div>`;
+    }
+
+    // Call-To-Action Arrow
+    html += `
+    <div style="text-align:center; padding: 1rem 0; animation: bounceCTA 2s infinite;">
+        <span class="material-symbols-outlined" style="color:#3b82f6; font-size:2.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));">expand_more</span>
+    </div>
+    <style>
+        @keyframes bounceCTA {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+    </style>`;
+
+    // ─── BLOQUE 2: ROL SII (todos) ────────────────────────────────────────────
+    const rolText  = D.rol_sii && D.rol_sii !== 'Sin ROL registrado' ? `ROL ${D.rol_sii}` : null;
+    const rolHtml  = rolText
+        ? `<div class="rol-pill"># ${rolText}</div>`
+        : `<span class="dato-estimado" style="color:#64748b;font-size:0.9rem">ROL no disponible — pendiente cruce SII<sup class="asterisco">*</sup></span>`;
+
+    html += `
+    <div class="section-card">
+        <h2><span class="material-symbols-outlined">fingerprint</span> Identificación SII</h2>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;">${rolHtml}
+            <div style="color:#94a3b8;font-size:0.9rem">${parsed.comuna}, Región Metropolitana</div>
+        </div>
+        <div class="fuentes">
+            <span class="fuente-tag">${fuenteSII}</span>
+        </div>
+    </div>`;
+
+    // ─── BLOQUE 3: Datos según tier ───────────────────────────────────────────
+    // ─── BLOQUE 3: Datos Generales (GRATIS, BASICO+) ──────────────────────────
+    // Se muestra en todos los planes ahora, tal como pidió el usuario
+    const terrenoEstimado = esEstimadoSII;
+    const coefEstimado    = esEstimadoNormativa;
+
+    html += `
+    <div class="section-card">
+        <h2><span class="material-symbols-outlined">home_work</span> Datos del Predio — SII</h2>
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="lbl">Superficie Terreno</div>
+                <div class="val">${val(fmt(D.terreno_m2) + ' m²', terrenoEstimado)}</div>
+            </div>
+            <div class="metric-box">
+                <div class="lbl">Superficie primer piso</div>
+                <div class="val">${val(fmt(D.construido_m2) + ' m²', terrenoEstimado)}</div>
+            </div>
+            <div class="metric-box">
+                <div class="lbl">Avalúo Fiscal</div>
+                <div class="val" style="font-size:1.2rem">${val(D.avaluo_fiscal_clp ? fmtClp(D.avaluo_fiscal_clp) : '—', terrenoEstimado)}</div>
+            </div>
+            <div class="metric-box highlight-card" style="border-color: rgba(59,130,246,0.5)">
+                <div class="lbl">Factor de Potencial</div>
+                <div class="val" style="color:#3b82f6">${D.factor_potencial || '—'} / 10</div>
+            </div>
+        </div>
+        <div class="fuentes">
+            <span class="fuente-tag">${terrenoEstimado ? fuenteEstim : fuenteSII}</span>
+        </div>
+    </div>
+
+    <div class="section-card">
+        <h2><span class="material-symbols-outlined">menu_book</span> Normativa — ${D.fuente_normativa || 'PRC Comunal'}</h2>
+        <table class="norm-table">
+            <thead><tr><th>Parámetro</th><th style="text-align:right">Valor</th></tr></thead>
+            <tbody>
+                <tr><td>Zonificación Oficial</td><td>${val(D.zona, coefEstimado)}</td></tr>
+                <tr><td>Uso Permitido</td><td>${val('Residencial, Equipamiento', coefEstimado)}</td></tr>
+                <tr><td>Altura Máxima</td><td>${val(D.altura_maxima, coefEstimado)}</td></tr>
+                <tr><td>Constructibilidad</td><td>${val(D.constructibilidad, coefEstimado)}</td></tr>
+                <tr><td>Ocupación de Suelo Máx.</td><td>${val(D.ocupacion_suelo + '%', coefEstimado)}</td></tr>
+                <tr><td>Tipo de Oportunidad</td><td><strong style="color:#${tipo==='A'?'22c55e':tipo==='B'?'3b82f6':'f59e0b'}">${tipo}</strong></td></tr>
+            </tbody>
+        </table>
+        <div class="fuentes">
+            <span class="fuente-tag">${fuenteNorm}</span>
+            <span class="fuente-tag">MINVU — Geoide Sistema Nacional Territorial</span>
+        </div>
+    </div>`;
+
+    // ─── Riesgos y Prohibiciones (Nuevos ganchos) ───────────────────────────
+    if (PLAN === 'gratis' || PLAN === 'basico') {
+        html += `
+        <div class="section-card" style="background: rgba(239,68,68,0.05); border-color: rgba(239,68,68,0.2);">
+            <h2><span class="material-symbols-outlined" style="color:#ef4444">warning</span> Riesgos y Prohibiciones (Expropiación, Fallas, Inundación)</h2>
+            <div style="filter:blur(4px); opacity:0.6; pointer-events:none;">
+                <p>El predio se encuentra en zona de riesgo geomorfológico según mapa regulador...</p>
+                <ul style="margin-top:1rem; padding-left:1.5rem">
+                    <li>Riesgo de falla geológica activa: <strong>ALTO</strong></li>
+                    <li>Sujeto a declaratoria de utilidad pública (ensanche): <strong>SÍ (3.5m)</strong></li>
+                </ul>
+            </div>
+            <div style="text-align:center; margin-top:-3rem; position:relative; z-index:10;">
+                <button class="lock-btn" style="background:linear-gradient(135deg,#ef4444,#b91c1c)" onclick="window.location.href='index.html#planes'">
+                    <span class="material-symbols-outlined" style="vertical-align:middle;font-size:1.1rem">lock_open</span> 
+                    Desbloquear Riesgos (Plan Profesional)
+                </button>
+            </div>
+        </div>`;
+    }
+
+    if (PLAN === 'gratis' || PLAN === 'basico') {
+        html += lockSection('Cálculos: Potencial Edificable e Índices', 'PROFESIONAL', '$50.000');
+        html += lockSection('Análisis Económico del Proyecto', 'PROFESIONAL', '$50.000');
+        html += lockSection('Escenarios Financieros', 'PREMIUM', '$250.000');
+    }
+
+
+    // ─── PROFESIONAL+ ─────────────────────────────────────────────────────────
+    if (['profesional','premium','membresia_pro'].includes(PLAN)) {
+        const avaluoEstimado = esEstimadoSII;
+        html += `
+        <div class="section-card">
+            <h2><span class="material-symbols-outlined">analytics</span> Cálculos de Factibilidad</h2>
+            <div class="metrics-grid">
+                <div class="metric-box gold">
+                    <div class="lbl">Potencial Edificable</div>
+                    <div class="val">${val(fmt(D.potencial_edificable) + ' m²', esEstimadoNormativa)}</div>
+                    <div class="sub">Terreno × Constructibilidad</div>
+                </div>
+                <div class="metric-box">
+                    <div class="lbl">Índice Subutilización</div>
+                    <div class="val">${val(D.indice_subutilizacion + 'x', esEstimadoSII)}</div>
+                </div>
+                <div class="metric-box">
+                    <div class="lbl">Avalúo Fiscal</div>
+                    <div class="val" style="font-size:1.2rem">${val(D.avaluo_fiscal_clp ? fmtClp(D.avaluo_fiscal_clp) : '—', avaluoEstimado)}</div>
+                </div>
+            </div>
+            <div class="fuentes">
+                <span class="fuente-tag">${fuenteSII}</span>
+                <span class="fuente-tag">${fuenteNorm}</span>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <h2><span class="material-symbols-outlined">attach_money</span> Análisis Económico</h2>
+            <div class="metrics-grid">
+                <div class="metric-box">
+                    <div class="lbl">Precio m² Mercado (ref.)</div>
+                    <div class="val" style="font-size:1.2rem">${val('$' + fmt(D.precio_m2_mercado), true)}</div>
+                    <div class="sub">CLP referencial zona</div>
+                </div>
+                <div class="metric-box gold">
+                    <div class="lbl">Valor Estimado Proyecto</div>
+                    <div class="val" style="font-size:1.1rem">${val(fmtClp(D.valor_proyecto_estimado), true)}</div>
+                </div>
+                <div class="metric-box">
+                    <div class="lbl">Recomendación</div>
+                    <div class="val" style="font-size:1rem;color:#${D.recomendacion==='COMPRAR'?'22c55e':'f59e0b'}">${D.recomendacion}</div>
+                </div>
+            </div>
+            <div class="fuentes">
+                <span class="fuente-tag">Estimación por Footprint Satelital</span>
+                <span class="fuente-tag">Portales Inmobiliarios — Precio Referencial Zona</span>
+            </div>
+        </div>`;
+
+        if (PLAN === 'profesional') {
+            html += lockSection('Escenarios Financieros (Conservador / Medio / Agresivo)', 'PREMIUM', '$250.000');
+            html += lockSection('Análisis de Riesgo y Estrategia', 'PREMIUM', '$250.000');
+        }
+    }
+
+    // ─── PREMIUM ──────────────────────────────────────────────────────────────
+    if (['premium','membresia_pro'].includes(PLAN)) {
+        const dep55 = 55;
+        const pot   = D.potencial_edificable || 0;
+        const pm2   = D.precio_m2_mercado || 85000;
+        const esc   = [
+            { nom:'Conservador', f:0.75 },
+            { nom:'Medio',       f:0.87 },
+            { nom:'Agresivo',    f:1.00 },
+        ].map(e => {
+            const unds = Math.floor(pot * e.f / dep55);
+            const vt   = Math.round(unds * dep55 * pm2 * 1.15);
+            const cc   = Math.round(unds * dep55 * 28000);
+            const mg   = vt > 0 ? Math.round((vt - cc) / vt * 100) : 0;
+            return { ...e, unds, vt, cc, mg };
+        });
+
+        const escHtml = esc.map(e => `
+        <div class="esc-card">
+            <div class="esc-nom">${e.nom}</div>
+            <div class="r"><span>Unidades dep.</span><span>~${e.unds}</span></div>
+            <div class="r"><span>Valor venta</span><span>${fmtClp(e.vt)}</span></div>
+            <div class="r"><span>Costo const.</span><span>${fmtClp(e.cc)}</span></div>
+            <div class="margen">${val('+' + e.mg + '%', true)}</div>
+            <div style="color:#64748b;font-size:0.78rem">Margen bruto estimado</div>
+        </div>`).join('');
+
+        html += `
+        <div class="section-card">
+            <h2><span class="material-symbols-outlined">trending_up</span> Escenarios Financieros</h2>
+            <div class="escenarios-grid">${escHtml}</div>
+            <div class="fuentes">
+                <span class="fuente-tag">Estimación por Footprint Satelital</span>
+                <span class="fuente-tag">Portales Inmobiliarios — Precio Referencial Zona</span>
+            </div>
+        </div>
+        <div class="section-card">
+            <h2><span class="material-symbols-outlined">shield</span> Análisis de Riesgo</h2>
+            <div class="riesgos-grid">
+                <div class="riesgo-box"><div class="r-lbl">Riesgo Normativo</div><div class="r-val" style="color:#22c55e">${D.riesgo_normativo || 'BAJO — PRC vigente con normas claras.'}</div></div>
+                <div class="riesgo-box"><div class="r-lbl">Riesgo de Mercado</div><div class="r-val" style="color:#22c55e">${D.riesgo_mercado || 'BAJO — Alta demanda en la zona.'}</div></div>
+                <div class="riesgo-box"><div class="r-lbl">Riesgo de Entorno</div><div class="r-val" style="color:#22c55e">${D.riesgo_entorno || 'BAJO — Zona consolidada con servicios.'}</div></div>
+            </div>
+        </div>
+        <div class="section-card">
+            <h2><span class="material-symbols-outlined">architecture</span> Estrategia Recomendada</h2>
+            <p style="color:#e2e8f0;line-height:1.7">${D.tipo_desarrollo_recomendado || 'Proyecto residencial en altura con unidades DFL2.'}</p>
+        </div>`;
+    }
+
+    // ─── MEMBRESÍA PRO: JSON ──────────────────────────────────────────────────
+    if (PLAN === 'membresia_pro') {
+        const jsonData = {
+            direccion:             RAW_DIR,
+            coordenadas:           D.coordenadas || '',
+            comuna:                parsed.comuna,
+            terreno:               D.terreno_m2,
+            potencial:             D.potencial_edificable,
+            indice_subutilizacion: D.indice_subutilizacion,
+            nivel_oportunidad:     D.nivel_potencial || (D.indice_subutilizacion > 5 ? 'ALTO' : D.indice_subutilizacion >= 3 ? 'MEDIO' : 'BAJO'),
+            color_mapa:            D.color_mapa || 'amarillo',
+            tipo_oportunidad:      D.tipo_oportunidad,
+            tooltip_resumen:       D.tooltip_resumen || RAW_DIR,
+        };
+        html += `
+        <div class="section-card">
+            <h2><span class="material-symbols-outlined">code</span> JSON — Plataforma Membresía Pro</h2>
+            <div class="json-out">${JSON.stringify(jsonData, null, 2)}</div>
+        </div>`;
+    }
+
+    // ─── CTA ──────────────────────────────────────────────────────────────────
+    html += `
+    <div class="cta-bar">
+        <h2>¿Continuar con el proyecto?</h2>
+        <p>Descarga este informe o consulta otra dirección.</p>
+        <div class="cta-row">
+            <button class="btn-dl" onclick="window.print()">
+                <span class="material-symbols-outlined">download</span> Descargar PDF
+            </button>
+            <button class="btn-back" onclick="window.location.href='index.html'">
+                <span class="material-symbols-outlined">arrow_back</span> Nueva Consulta
+            </button>
+        </div>
+    </div>`;
+
+    body.innerHTML = html;
+}
+
+cargarInforme();
+</script>
+</body>
+</html>

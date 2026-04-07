@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Interactivo PRO | factibilidad.cl</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mapa.css">
+</head>
+<body class="mapa-body">
+    <!-- MAP CONTAINER -->
+    <div id="full-map"></div>
+
+    <!-- PAYWALL OVERLAY -->
+    <div id="paywall-overlay" class="glass-overlay">
+        <div class="paywall-box glass-panel">
+            <h2 class="brand-title">Factibilidad <span class="premium-badge">PRO</span></h2>
+            <h3>Territorio Restringido</h3>
+            <p>Estás intentando acceder al <strong>Mapa Completo de Oportunidades</strong> de la Región Metropolitana.</p>
+            <ul class="premium-features">
+                <li>Visualiza más de <strong>1.300 zonas normativas</strong>.</li>
+                <li>Filtra por rentabilidad y oportunidades Tipo A.</li>
+                <li>Análisis de IA de subutilización en tiempo real.</li>
+            </ul>
+            <div class="price-tag">
+                <span class="currency">$</span>49.000<span class="period">/mes</span>
+            </div>
+            <div class="paywall-actions">
+                <button class="btn-primary" onclick="simularPago()">Suscribirme y Desbloquear</button>
+                <a href="index.html" class="btn-text">Volver al Inicio</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FLOATING UI (Hidden initially) -->
+    <div id="map-ui" style="display: none;">
+        <div class="map-header glass-panel">
+            <h2 class="brand-title" style="font-size: 1.2rem; margin: 0;">Factibilidad</h2>
+            <div class="map-controls">
+                <button class="btn-small" style="background: rgba(255,255,255,0.2); color: white;">Todas</button>
+                <button class="btn-small" style="color: #6ee7b7; border-color: #059669;">Solo Tipo A (Alta Rentabilidad)</button>
+            </div>
+            <a href="index.html" style="color: var(--text-muted); text-decoration: none; font-size: 0.85rem; margin-left: 1rem;">Volver al Radar ></a>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="mapa.js"></script>
+</body>
+</html>
